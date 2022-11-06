@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .models import User
+from .models import User, Posts
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user,login_required,logout_user, current_user, logout_user
 from . import db
@@ -48,13 +48,25 @@ def register():
     return render_template("register.html")
 
 @login_required
-@views.route('posts')
-def posts():
-    return "<h1>Posts Page</h1>"
-
-@login_required
 @views.route('logout')
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
+@login_required
+@views.route('/create-post', methods=['GET', 'POST'])
+def create_post():
+    if request.method == 'POST':
+        link = request.form.get('link')
+        desc = request.form.get('desc')
+        data = Posts(by=current_user.username, link=link, desc=desc)
+        db.session.add(data)
+        db.session.commit()
+        return redirect(url_for('views.posts'))
+    return render_template('createpost.html')
+
+@login_required
+@views.route('/posts')
+def posts():
+    posts = Posts.query.all()
+    return render_template('posts.html', posts=posts[::-1])

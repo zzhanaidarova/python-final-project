@@ -25,6 +25,9 @@ def createapp():
     def userloader(id):
         return User.query.filter_by(id=int(id)).first()
 
+    with app.app_context():
+        db.create_all()
+
     return app
 
 def createDatabase(app):
