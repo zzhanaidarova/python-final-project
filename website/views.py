@@ -6,9 +6,9 @@ from . import db
 
 views = Blueprint('views', __name__)
 
-@views.route('/')
+@views.route('/mainpage')
 def home():
-    return "<h1>Main Page</h1>"
+    return render_template("mainpage.html")
 
 @views.route('/login', methods=['GET', 'POST'])
 def login():
