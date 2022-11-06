@@ -17,3 +17,11 @@ class Posts(db.Model):
     link = db.Column(db.String(900))
     desc = db.Column(db.String(200))
     date = db.Column(db.DateTime, default=datetime.now())
+
+class Messages(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    room = db.Column(db.String(10))
+    by = db.Column(db.String(10))
+    to = db.Column(db.String(10))
+    message = db.Column(db.String(500))
+    time = db.Column(db.DateTime, default = datetime.now())

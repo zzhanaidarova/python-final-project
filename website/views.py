@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .models import User, Posts
+from .models import User, Posts, Messages
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user,login_required,logout_user, current_user, logout_user
 from . import db
@@ -70,3 +70,43 @@ def create_post():
 def posts():
     posts = Posts.query.all()
     return render_template('posts.html', posts=posts[::-1])
+
+@views.route('/message')
+@login_required
+def message():
+    data1 = Messages.query.filter_by(to=current_user.username).all()
+    data2 = Messages.query.filter_by(by=current_user.username).all()
+    data = []
+    for da in data1:
+        data.append(da)
+    for da in data2:
+        data.append(da)
+    data = list(dict.fromkeys(data))
+    return render_template("message.html")
+
+@views.route('/message-to')
+@login_required
+def message_to():
+    exists = User.query.filter_by(username=to).first()
+    if exists:
+        l1 = Messages.query.filter_by(to=current_user.username).all()
+        l2 = Messages.query.filter_by(to=current_user.username).all()
+        d = []
+        for da in l1:
+            d.append(da)
+        for da in l2:
+            d.append(da)
+        d = list(dict.fromkeys(d))
+        
+        data1 = Messages.query.filter_by(room=f'{to}-{current_user.username}').first()
+        data2 = Messages.query.filter_by(room=f'{current_user.username}-{to}').first()
+        data = []
+        for da in data1:
+            data.append(da)
+        for da in data2:
+            data.append(da)
+        data.sort(key = lambda d:d.id)
+        return render_template('message-to.html', to=to, data=data, uname=current_user.username, people=d)
+
+
+    return render_template(url_for('views.message'))
