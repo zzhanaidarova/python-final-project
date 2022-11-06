@@ -48,10 +48,10 @@ def register():
     return render_template("register.html")
 
 @login_required
-@views.route('logout')
+@views.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('views.home'))
 
 @login_required
 @views.route('/create-post', methods=['GET', 'POST'])
