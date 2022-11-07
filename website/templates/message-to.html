@@ -15,7 +15,7 @@
                 <div class="slidebar">
                     <div class="search-chat">
                         <div class="search-bar">
-                            <input type="text" placeholder="Enter usernameto chat:" class="input-required" 
+                            <input type="text" placeholder="Enter username to chat:" class="input-required" 
                             id="input_field"><button type="submit" class="btn btn-lg" id="submit-btn"><i class="i.fas.fa-paper-plane"></i></button>
                         </div>
                     </div>
@@ -23,10 +23,10 @@
                     <div class="chats">
                         {% for name in people %}
                         <div class="chat">
-                            <a href="/message/to={{name}}" class="fill-div">
+                            <a href="/message-to/to={{name}}" class="fill-div">
                                 <div class="chat-right">
                                     <div class="chat-right-top">
-                                        <cpan class="contact-name">{{name}}</cpan>
+                                        <span class="contact-name">{{name}}</span>
                                     </div>
                                 </div>
                             </a>
@@ -34,7 +34,7 @@
                         {% endfor %}
                     </div>
                 </div>
-            <div class="main" style="background-image: url('bg-for-webnew.jpg'); background-size: cover;">
+            <div class="main" style="background-image: url('bg-for-web.jpg'); background-size: cover;">
                 <div class="chat-window-header">
                     <div class="chat-window-header-left">
                         <div class="contact-name-container">
@@ -45,18 +45,18 @@
                 </div>
                 <div class="chat-window" id="chat-window">
                     {% for message in data %}
-                    {% if message.by == uname %}
-                    <div class="sender">
-                        <span class="sender-message">{{ message.message }}</span>
-                        <span class="message-time">{{ message.time.strftime('%d-%m-%Y@%H:%M') }}</span>
-                    </div>
-                    {% endif %}
-                    {% if message.by == to %}
-                    <div class="receiver">
-                        <span class="receiver-message">{{ message.message }}</span>
-                        <span class="message-time">{{ message.time.strftime('%d-%m-%Y@%H:%M') }}</span>
-                    </div>
-                    {%endif %}
+                        {% if message.by == uname %}
+                            <div class="sender">
+                                <span class="sender-message">{{ message.message }}</span>
+                                <span class="message-time">{{ message.time.strftime('%d-%m-%Y@%H:%M') }}</span>
+                            </div>
+                        {% endif %}
+                        {% if message.by == to %}
+                            <div class="receiver">
+                                <span class="receiver-message">{{ message.message }}</span>
+                                <span class="message-time">{{ message.time.strftime('%d-%m-%Y@%H:%M') }}</span>
+                            </div>
+                        {%endif %}
                     {%endfor %}
                 </div>
                 <div class="type-message-bar">
@@ -70,15 +70,15 @@
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-<script type="text/javascript" charset="utf-8">
-    var socket = io();
-    socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
-    });</script>
+        <script type="text/javascript" charset="utf-8">
+            var socket = io();
+            socket.on('connect', function() {
+                socket.emit('my event', {data: 'I\'m connected!'});
+            });</script>
         <script>
             document.getElementById("submit-btn").addEventListener("click", () => {
                 const input_value = document.getElementById("input_field").value;
-                window.location.href = 'http://localhost:5000/message/to=$(input_value)';
+                window.location.href = 'http://127.0.0.1:5000//message-to/to=$(input_value)';
             });
 
             socket = io();
@@ -107,13 +107,13 @@
             });
 
             socket.on('receive_message', function (data) {
-                const newNode = document('div');
-                if (data('username') == "{{ uname }}") {
+                const newNode = document.createElement('div');
+                if (data['username'] == "{{ uname }}") {
                     newNode.className = 'sender';
-                    newNode.innerHTML = <span class="sender-message">${data['message']}</span><span class="message-time">${data['time']}</span>;     
+                    newNode.innerHTML = `<span class="sender-message">${data['message']}</span><span class="message-time">${data['time']}</span>`;     
                 } else if (data['username'] == '{{ to }}') {
                     newNode.className = 'receiver';
-                    newNode.innerHTML = <span class="receiver-message">${data['message']}</span><span class="message-time">${data['time']}</span>;     
+                    newNode.innerHTML = `<span class="receiver-message">${data['message']}</span><span class="message-time">${data['time']}</span>`;     
                 }
                 document.getElementById('chat-window').appendChild(newNode);            
             })

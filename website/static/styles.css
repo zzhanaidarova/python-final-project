@@ -37,14 +37,14 @@ a {
     grid-row: 1 / -1;
     width: 139.6rem;
     margin: 2rem auto;
-    border: 1px solid rgba(0, 0, 0, 1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 1rem 0.05rem rgba(0, 0, 0, 0.2);
 }
 
 .sliderbar {
     grid-column: 1 / 2;
     background-color: white;
-    border-right: 1px solid rgba(0, 0, 0, 2);
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .search-chat {
@@ -65,7 +65,7 @@ a {
     flex: 1;
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
-    font-family: "Segoi UI";
+    font-family: "Segoe UI";
 }
 
 .search-bar input::placeholder {
@@ -123,7 +123,7 @@ a {
 .main{
     grid-column: 2 / -1;
     position: relative;
-    background: url('../static/bg-for-webnew.jpg');
+    background: url('../static/bg-for-web.jpg');
 }
 
 .chat-window-header {
@@ -196,7 +196,7 @@ a.fill-div {
     align-self: flex-start;
 }
 
-.sender-message, .receiver{
+.sender-message, .receiver-message{
     font-size: 1.4rem;
     margin-right: 3rem;
 }
@@ -244,8 +244,18 @@ input[type="range"] {
     flex: 1;
 }
 
-.type-message-bar-center input::-webkit-input-placeholder {
+.type-message-bar-center input{
     font-size: 1.5rem;
+    outline: none;
+    border: none;
+    padding: 1rem 1rem 1rem 2rem;
+    flex: 1;
+    border-radius: 2rem;
+    font-family: "Segoe UI";
+}
+
+.type-message-bar-center input::-webkit-input-placeholder{
+    font-size: 1.5rem;   
 }
 
 .input-required {

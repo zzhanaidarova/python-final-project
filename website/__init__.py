@@ -2,8 +2,10 @@ from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_socketio import SocketIO
 
 db = SQLAlchemy()
+socketio = SocketIO()
 
 def createapp():
     app = Flask(__name__)
@@ -13,7 +15,8 @@ def createapp():
     db.init_app(app)
     loginmanager = LoginManager(app)
     loginmanager.login_view = '/'
-
+    socketio.init_app(app)
+    
     from .views import views
 
     app.register_blueprint(views, url_prefix='/')
@@ -28,7 +31,7 @@ def createapp():
     with app.app_context():
         db.create_all()
 
-    return app
+    return socketio, app
 
 def createDatabase(app):
     if not path.exists("website/database.db"):
