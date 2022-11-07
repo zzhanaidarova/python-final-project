@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user,login_required,logout_user, current_user, logout_user
 from . import db, socketio
 from datetime import datetime
+from flask_socketio import SocketIO, join_room
 
 views = Blueprint('views', __name__)
 
