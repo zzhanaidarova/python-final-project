@@ -86,7 +86,7 @@ def message():
 
 @views.route('/message-to')
 @login_required
-def message_to():
+def message_to(to):
     exists = User.query.filter_by(username=to).first()
     if exists:
         l1 = Messages.query.filter_by(to=current_user.username).all()
