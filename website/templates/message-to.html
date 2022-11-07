@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Message</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="../static/styles.css">
         <!-- Bootstrap Css--> 
         <link href="https://cdn.jsdelivr.net/nmp/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="strylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -78,7 +78,7 @@
         <script>
             document.getElementById("submit-btn").addEventListener("click", () => {
                 const input_value = document.getElementById("input_field").value;
-                window.location.href = 'http://127.0.0.1:5000//message-to/to=$(input_value)';
+                window.location.href = 'http://127.0.0.1:5000/message-to/to=$(input_value)';
             });
 
             socket = io();

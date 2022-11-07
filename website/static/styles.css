@@ -26,8 +26,16 @@ a {
     height: 100%;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: 12.8rem 1fr;
-    background: url('https:cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg');
+    background-color: #a4c3b2;
     background-size: cover;
+}
+
+
+.main{
+    grid-column: 2 / -1;
+    position: relative;
+    background: url('../static/bg-for-web.jpg');
+    background-size: 100% 100%;
 }
 
 .app {
@@ -118,12 +126,6 @@ a {
 
 .contact-name {
     font-size: 2.3rem;
-}
-
-.main{
-    grid-column: 2 / -1;
-    position: relative;
-    background: url('../static/bg-for-web.jpg');
 }
 
 .chat-window-header {
